@@ -36,7 +36,8 @@
         "VIBRATE",
         "READ_CALENDAR",
         "WRITE_CALENDAR",
-        "POST_NOTIFICATIONS"
+        "POST_NOTIFICATIONS",
+        "RECORD_AUDIO"
       ],
       "package": "com.mindsync.app",
       "useNextNotificationsApi": true
