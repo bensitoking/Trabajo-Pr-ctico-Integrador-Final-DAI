@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "MindSync",
+    "slug": "mindsync",
+    "scheme": "mindsync",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "platforms": ["ios", "android"],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "Necesitamos acceso al calendario para registrar tus sesiones de enfoque.",
+        "NSPhotoLibraryAddUsageDescription": "Permite guardar recursos si fuese necesario (futuro).",
+        "NSUserTrackingUsageDescription": "Se utiliza para mejorar notificaciones y recordatorios."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f172a"
+      },
+      "permissions": [
+        "VIBRATE",
+        "READ_CALENDAR",
+        "WRITE_CALENDAR",
+        "POST_NOTIFICATIONS"
+      ],
+      "package": "com.mindsync.app",
+      "useNextNotificationsApi": true
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#6366f1",
+          "mode": "production"
+        }
+      ],
+      ["expo-calendar"]
+    ]
+  }
+}
