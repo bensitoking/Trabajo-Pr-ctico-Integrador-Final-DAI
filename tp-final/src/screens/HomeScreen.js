@@ -1,9 +1,11 @@
+// src/screens/HomeScreen.js
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 import { colors, spacing, radius } from "../lib/theme";
 import { useFocusTimer } from "../hooks/useFocusTimer";
 import { ensureCalendarPermissions, ensureNotificationPermissions } from "../lib/permissions";
 import { setupAndroidChannel } from "../lib/notifications";
+import { addFocusEvent } from "../lib/calendar"; // ✅ agregado
 
 const h = React.createElement;
 
@@ -52,12 +54,33 @@ export default function HomeScreen() {
           h(TouchableOpacity, {
             onPress: () => {
               const m = Math.max(1, Math.min(180, parseInt(input || "25", 10)));
-              setMinutes(m); reset(m);
+              setMinutes(m);
+              reset(m);
             },
             style: [styles.btn, styles.btnPrimary, { marginLeft: spacing(1) }]
           }, h(Text, { style: styles.btnText }, "Aplicar"))
         )
-      )
+      ),
+      // ✅ BOTÓN DE PRUEBA: agrega evento manualmente
+      h(TouchableOpacity, {
+        onPress: async () => {
+          try {
+            const now = new Date();
+            const end = new Date(now.getTime() + 2 * 60 * 1000);
+            const id = await addFocusEvent({
+              title: "MindSync · PRUEBA 2 min",
+              startDate: now,
+              endDate: end,
+              notes: "Evento de prueba creado manualmente."
+            });
+            alert("Evento agregado (id: " + id + ")");
+          } catch (e) {
+            alert("Error al crear evento: " + (e?.message || e));
+            console.log("Calendar error:", e);
+          }
+        },
+        style: [styles.btn, styles.btnPrimary, { marginTop: spacing(2) }]
+      }, h(Text, { style: styles.btnText }, "Registrar evento de prueba"))
     ),
     h(Text, { style: styles.hint }, "Al iniciar/terminar vibra y se programa una notificación local.")
   );

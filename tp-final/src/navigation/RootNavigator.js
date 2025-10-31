@@ -1,5 +1,5 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import SoundsScreen from "../screens/SoundsScreen";
@@ -12,15 +12,17 @@ const Tab = createBottomTabNavigator();
 const h = React.createElement;
 
 export default function RootNavigator() {
-  const theme = {
-    dark: true,
+  // EXTENDER el DarkTheme para conservar fonts, spacing, etc.
+  const MyTheme = {
+    ...DarkTheme,
     colors: {
+      ...DarkTheme.colors,
       background: colors.bg,
-      border: "#0b1220",
       card: "#111827",
-      notification: colors.primary,
+      border: "#0b1220",
+      text: colors.text,
       primary: colors.primary,
-      text: colors.text
+      notification: colors.primary
     }
   };
 
@@ -35,7 +37,7 @@ export default function RootNavigator() {
     }
   });
 
-  return h(NavigationContainer, { theme },
+  return h(NavigationContainer, { theme: MyTheme },
     h(Tab.Navigator, { screenOptions },
       h(Tab.Screen, { name: "Home", component: HomeScreen }),
       h(Tab.Screen, { name: "Sonidos", component: SoundsScreen }),
